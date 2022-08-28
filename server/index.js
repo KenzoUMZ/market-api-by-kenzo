@@ -20,6 +20,16 @@ app.use(
 
 app.use(express.json())
 
+app.get('/', async (req, res) => {
+    try {
+        
+
+        res.status(201).json({ message: 'Welcome to Market API by Kenzo' });
+    } catch (error) {
+        res.status(500).json({ erro: error })
+    }
+})
+
 marketRoute(app)
 productRoute(app)
 userRoute(app)
