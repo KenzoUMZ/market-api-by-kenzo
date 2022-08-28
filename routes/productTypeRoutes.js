@@ -22,7 +22,7 @@ const productTypeRoute = (app) => {
     app.get('/productType', async (req, res) => {
         try {
 
-            const list = await ProductType.find().collation({ locale: 'en', strength: 2 }).sort({ name: 1 });
+            const list = await ProductType.find().collation({ locale: 'pt-br', strength: 2 }).sort({name: 1 });
 
 
             res.status(200).json(list);
