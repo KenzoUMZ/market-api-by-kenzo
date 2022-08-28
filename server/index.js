@@ -22,9 +22,7 @@ app.use(express.json())
 
 app.get('/', async (req, res) => {
     try {
-        
-
-        res.status(201).json({ message: 'Welcome to Market API by Kenzo' });
+        res.json({ message: 'Welcome to Market API by Kenzo' });
     } catch (error) {
         res.status(500).json({ erro: error })
     }
@@ -40,7 +38,7 @@ const port = process.env.PORT || 3000;
 
 mongoose
     .connect(
-       process.env.MONGO_URI,
+        process.env.MONGO_URI,
     )
     .then(() => {
         console.log('Database Connected!')
