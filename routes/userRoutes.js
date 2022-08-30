@@ -2,12 +2,12 @@ const User = require("../models/user")
 
 const userRoute = (app) => {
     app.post('/user', async (req, res) => {
-        const { name, email,lists } = req.body
+        const { name, email } = req.body
 
         const user = {
             name,
             email,
-            lists
+      
         }
 
         try {
