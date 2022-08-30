@@ -35,7 +35,7 @@ const listRoute = (app) => {
     app.get('/list/:userId', async (req, res) => {
         const userId = req.params.userId;
         try {
-            const list = await Product.find({ userId: userId });
+            const list = await List.find({ userId: userId });
             if (!list) {
                 res.status(422).json({ message: 'Lista não encontrada!' })
                 return
@@ -46,6 +46,22 @@ const listRoute = (app) => {
         }
     })
 
+    app.patch('/list/:userId/:productId', async (res, res) => {
+
+        const userId = req.params.userId
+        const productId = req.params.productId
+        try {
+            const list = await List.findOneAndUpdate({ userId: userId }, { $push: { products: productId } });
+
+            if (!list) {
+                res.status(422).json({message: 'Lista não encontrada!' })
+                return
+            }
+            res.status(200).json(list)
+        } catch (error) {
+            res.status(500).json({ erro: error })
+        }
+    });
 }
 
 module.exports = listRoute
