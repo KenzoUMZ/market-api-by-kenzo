@@ -46,7 +46,7 @@ const listRoute = (app) => {
         }
     })
 
-    app.patch('/list/:userId/:productId', async (res, res) => {
+    app.patch('/list/:userId/:productId', async (req, res) => {
 
         const userId = req.params.userId
         const productId = req.params.productId
