@@ -1,7 +1,6 @@
 // config inicial
 const express = require('express')
 const app = express()
-
 const mongoose = require('mongoose')
 const marketRoute = require('./routes/marketRoutes')
 const productRoute = require('./routes/productRoutes')

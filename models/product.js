@@ -4,7 +4,8 @@ const Product = mongoose.model('Product', {
     name: String,
     type: String,
     description: String,
-    thumbnail: String
+    thumbnail: String,
+    gtin: String
 })
 
 module.exports = Product

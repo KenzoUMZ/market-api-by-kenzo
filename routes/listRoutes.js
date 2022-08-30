@@ -1,17 +1,14 @@
 const List = require("../models/list")
 const Product = require("../models/product")
 
-
-
 const listRoute = (app) => {
     app.post('/list', async (req, res) => {
-        const { name, products, total, userId } = req.body
+        const { name, products, userEmail } = req.body
 
         const list = {
             name,
             products,
-            total,
-            userId
+            userEmail
         }
 
         try {
@@ -32,10 +29,10 @@ const listRoute = (app) => {
         }
     })
 
-    app.get('/list/:userId', async (req, res) => {
-        const userId = req.params.userId;
+    app.get('/list/:userEmail', async (req, res) => {
+        const userEmail = req.params.useuserEmailrId;
         try {
-            const list = await List.find({ userId: userId });
+            const list = await List.find({ userEmail: userEmail });
             if (!list) {
                 res.status(422).json({ message: 'Lista não encontrada!' })
                 return
@@ -46,7 +43,7 @@ const listRoute = (app) => {
         }
     })
 
-    app.patch('/list/:userId/:productId', async (req, res) => {
+    app.patch('/list/:userEmail/:productId', async (req, res) => {
 
         const userId = req.params.userId
         const productId = req.params.productId
@@ -54,7 +51,7 @@ const listRoute = (app) => {
             const list = await List.findOneAndUpdate({ userId: userId }, { $push: { products: productId } });
 
             if (!list) {
-                res.status(422).json({message: 'Lista não encontrada!' })
+                res.status(422).json({ message: 'Lista não encontrada!' })
                 return
             }
             res.status(200).json(list)
