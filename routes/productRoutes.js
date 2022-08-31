@@ -46,11 +46,11 @@ const productRoute = (app) => {
         }
     })
 
-    app.get('/product/:userEmail', async (req, res) => {
-        const userEmail = req.params.userEmail;
+    app.get('/product/:gtin', async (req, res) => {
+        const gtin = req.params.gtin;
         try {
 
-            const product = await Product.find({ userEmail: userEmail });
+            const product = await Product.find({ gtin: gtin });
             if (!product) {
                 res.status(422).json({ message: 'Produto não encontrado!' })
                 return

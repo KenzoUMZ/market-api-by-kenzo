@@ -30,7 +30,7 @@ const listRoute = (app) => {
     })
 
     app.get('/list/:userEmail', async (req, res) => {
-        const userEmail = req.params.useuserEmailrId;
+        const userEmail = req.params.userEmail;
         try {
             const list = await List.find({ userEmail: userEmail });
             if (!list) {

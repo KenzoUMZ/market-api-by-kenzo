@@ -34,10 +34,11 @@ listRoute(app)
 productTypeRoute(app)
 
 const port = process.env.PORT || 3000;
+const connectionString = 'mongodb+srv://admin:iFfZlCMVt0LKOSgV@cluster0.vh1v4.mongodb.net/?retryWrites=true&w=majority'
 
 mongoose
     .connect(
-        process.env.MONGO_URI,
+        connectionString,
     )
     .then(() => {
         console.log('Database Connected!')
