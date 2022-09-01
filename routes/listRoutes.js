@@ -11,6 +11,7 @@ const listRoute = (app) => {
             userEmail
         }
 
+
         try {
             await List.create(list)
 
@@ -43,12 +44,15 @@ const listRoute = (app) => {
         }
     })
 
-    app.patch('/list/:userEmail/:productId', async (req, res) => {
+    app.patch('/list/', async (req, res) => {
 
-        const userId = req.params.userId
-        const productId = req.params.productId
+        const { name, userEmail, productId } = req.body;
+
+        const data = { name, userEmail, productId };
+
         try {
-            const list = await List.findOneAndUpdate({ userId: userId }, { $push: { products: productId } });
+            const list = await List.findOneAndUpdate({ name: data.name, userEmail: data.userEmail },
+                { $push: { products: data.productId } });
 
             if (!list) {
                 res.status(422).json({ message: 'Lista não encontrada!' })
