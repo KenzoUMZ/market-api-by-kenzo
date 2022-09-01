@@ -2,13 +2,14 @@ const Market = require("../models/market")
 
 const marketRoute = (app) => {
     app.post('/market', async (req, res) => {
-        const { name, cnpj,location,products } = req.body
+        const { name, cnpj, location, products, thumbnail } = req.body
 
         const market = {
             name,
             cnpj,
             location,
-            products
+            products,
+            thumbnail
         }
 
         try {
@@ -38,7 +39,6 @@ const marketRoute = (app) => {
             res.status(500).json({ erro: error })
         }
     })
-  
 }
 
 module.exports = marketRoute
