@@ -8,7 +8,7 @@ const userRoute = require('./routes/userRoutes')
 const listRoute = require('./routes/listRoutes')
 const productTypeRoute = require('./routes/productTypeRoutes')
 require('dotenv').config();
-
+const localConnection = require('./constants/connectionString')
 
 
 app.use(
