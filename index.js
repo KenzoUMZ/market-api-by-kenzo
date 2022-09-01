@@ -9,8 +9,6 @@ const listRoute = require('./routes/listRoutes')
 const productTypeRoute = require('./routes/productTypeRoutes')
 require('dotenv').config();
 
-
-
 app.use(
     express.urlencoded({
         extended: true,

@@ -1,7 +1,7 @@
 const Product = require("../models/product")
 
 const productRoute = (app) => {
-    app.post('/product', async (req, res) => {
+    app.post('/products', async (req, res) => {
         const { name, type, description, unit, thumbnail, gtin } = req.body
 
         const product = {
@@ -21,7 +21,7 @@ const productRoute = (app) => {
             res.status(500).json({ error: error })
         }
     })
-    app.get('/product', async (req, res) => {
+    app.get('/products', async (req, res) => {
         try {
             const product = await Product.find()
 
@@ -46,14 +46,15 @@ const productRoute = (app) => {
         }
     })
 
-    app.get('/product/:gtin', async (req, res) => {
+    app.get('/products/:gtin', async (req, res) => {
         const gtin = req.params.gtin;
+       
         try {
-
             const product = await Product.findOne({ gtin: gtin });
             if (!product) {
+                res.message
                 res.status(422).json({ message: 'Produto não encontrado!' })
-                return
+                return res.message
             }
             res.status(200).json(product)
         } catch (error) {
