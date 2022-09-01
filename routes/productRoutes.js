@@ -50,7 +50,7 @@ const productRoute = (app) => {
         const gtin = req.params.gtin;
         try {
 
-            const product = await Product.find({ gtin: gtin });
+            const product = await Product.findOne({ gtin: gtin });
             if (!product) {
                 res.status(422).json({ message: 'Produto não encontrado!' })
                 return

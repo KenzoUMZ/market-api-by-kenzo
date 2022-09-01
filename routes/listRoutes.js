@@ -3,10 +3,11 @@ const Product = require("../models/product")
 
 const listRoute = (app) => {
     app.post('/list', async (req, res) => {
-        const { name, products, userEmail } = req.body
+        const { name, description, products, userEmail } = req.body
 
         const list = {
             name,
+            description,
             products,
             userEmail
         }
