@@ -45,15 +45,15 @@ const listRoute = (app) => {
         }
     })
 
-    app.patch('/list/', async (req, res) => {
+    app.patch('/list', async (req, res) => {
 
-        const { name, userEmail, productId } = req.body;
+        const { name, userEmail, gtin } = req.body;
 
-        const data = { name, userEmail, productId };
+        const data = { name, userEmail, gtin };
 
         try {
             const list = await List.findOneAndUpdate({ name: data.name, userEmail: data.userEmail },
-                { $push: { products: data.productId } });
+                { $push: { products: data.gtin } });
 
             if (!list) {
                 res.status(422).json({ message: 'Lista não encontrada!' })
