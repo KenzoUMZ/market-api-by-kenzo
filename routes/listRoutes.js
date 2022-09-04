@@ -43,19 +43,23 @@ const listRoute = (app) => {
             res.status(500).json({ erro: error })
         }
     })
-    app.get('/list/name/:userEmail', async (req, res) => {
-        const userEmail = req.params.userEmail;
-        try {
-            const list = await List.find({ userEmail: userEmail });
-            if (!list) {
-                res.status(422).json({ message: 'Lista não encontrada!' })
-                return
-            }
-            res.status(200).json(list)
-        } catch (error) {
-            res.status(500).json({ erro: error })
+
+    app.get('/list', async (req, res) => {
+        const { name, userEmail } = req.body;
+        const data = { name, userEmail };
+        const list = await List.findOne({ name: data.name, userEmail: data.userEmail });
+
+        if (!list) {
+            res.status(422).json({ message: 'Lista não encontrada' });
+            return
         }
-    })
+        try {
+            res.status(200).json(list);
+        } catch (error) {
+            res.status(500).json({ error: error })
+        }
+    });
+
     app.patch('/list', async (req, res) => {
 
         const { name, userEmail, gtin } = req.body;
