@@ -12,7 +12,6 @@ const listRoute = (app) => {
             userEmail
         }
 
-
         try {
             await List.create(list)
 
@@ -62,6 +61,25 @@ const listRoute = (app) => {
             res.status(200).json(list)
         } catch (error) {
             res.status(500).json({ erro: error })
+        }
+    });
+
+    app.delete('/list/:name?:userEmail', async (req, res) => {
+        const name = req.params.name;
+        const userEmail = req.params.userEmail;
+
+        const list = await List.findOne({ name: name, userEmail: userEmail });
+
+        if (!list) {
+            res.status(422).json({ message: 'Lista não encontrada' });
+            return
+        }
+        try {
+
+            await List.deleteOne({ name: name, userEmail: userEmail });
+            res.status(200).json({ message: 'Lista removida com sucesso!' });
+        } catch (error) {
+            res.status(500).json({ error: error })
         }
     });
 }
