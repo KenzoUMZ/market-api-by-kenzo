@@ -2,13 +2,12 @@ const Product = require("../models/product")
 
 const productRoute = (app) => {
     app.post('/products', async (req, res) => {
-        const { name, type, description, unit, thumbnail, gtin } = req.body
+        const { name, type, description, thumbnail, gtin } = req.body
 
         const product = {
             name,
             type,
             description,
-            unit,
             thumbnail,
             gtin
         }
@@ -48,7 +47,7 @@ const productRoute = (app) => {
 
     app.get('/products/:gtin', async (req, res) => {
         const gtin = req.params.gtin;
-       
+
         try {
             const product = await Product.findOne({ gtin: gtin });
             if (!product) {
@@ -61,6 +60,24 @@ const productRoute = (app) => {
             res.status(500).json({ erro: error })
         }
     })
+
+   
+    app.delete('/products/delete?:gtin', async (req, res) => {
+        const gtin = req.params.gtin;
+
+        try {
+            const list = await Product.findOne({ gtin: gtin });
+            if (!list) {
+                res.status(422).json({ message: 'Produto não encontrado' });
+                return
+            }
+            await Product.deleteOne({ gtin: gtin});
+
+            res.status(200).json({ message: 'Produto removido com sucesso!' });
+        } catch (error) {
+            res.status(500).json({ error: error })
+        }
+    });
 }
 
 module.exports = productRoute
