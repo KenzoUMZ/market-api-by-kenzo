@@ -62,16 +62,17 @@ const productRoute = (app) => {
     })
 
 
-    app.delete('/products/delete?:gtin', async (req, res) => {
-        const gtin = req.params.gtin;
+    app.delete('/products/delete?', async (req, res) => {
+        const { gtin } = req.body;
+        data = { gtin };
 
         try {
-            const product = await Product.findOne({ gtin: gtin });
+            const product = await Product.findOne({ gtin: data.gtin });
             if (!product) {
                 res.status(422).json({ message: 'Produto não encontrado' });
                 return
             }
-            await Product.deleteOne({ gtin: gtin });
+            await Product.deleteOne({ gtin: data.gtin });
 
             res.status(200).json({ message: 'Produto removido com sucesso!' });
         } catch (error) {
