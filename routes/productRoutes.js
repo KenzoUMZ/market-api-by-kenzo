@@ -61,17 +61,17 @@ const productRoute = (app) => {
         }
     })
 
-   
+
     app.delete('/products/delete?:gtin', async (req, res) => {
         const gtin = req.params.gtin;
 
         try {
-            const list = await Product.findOne({ gtin: gtin });
-            if (!list) {
+            const product = await Product.findOne({ gtin: gtin });
+            if (!product) {
                 res.status(422).json({ message: 'Produto não encontrado' });
                 return
             }
-            await Product.deleteOne({ gtin: gtin});
+            await Product.deleteOne({ gtin: gtin });
 
             res.status(200).json({ message: 'Produto removido com sucesso!' });
         } catch (error) {
