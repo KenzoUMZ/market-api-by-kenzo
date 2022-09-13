@@ -39,6 +39,27 @@ const marketRoute = (app) => {
             res.status(500).json({ erro: error })
         }
     })
+
+    app.patch('/market/price', async (req, res) => {
+
+        const { cnpj, gtin, value } = req.body;
+
+        const data = { cnpj, gtin, value };
+    
+        try {
+            const market = await Market.findOneAndUpdate({cnpj: data.cnpj},
+                { $set: {[`products.${data.gtin}`]: String(data.value)} });
+
+            if (!market) {
+                res.status(422).json({ message: 'Mercado não encontrado!' })
+                return
+            }
+            res.status(200).json(market)
+        } catch (error) {
+            res.status(500).json({ error: error })
+        }
+    });
+
 }
 
 module.exports = marketRoute

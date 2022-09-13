@@ -35,7 +35,7 @@ const port = process.env.PORT || 3000;
 
 mongoose
     .connect(
-        process.env.MONGO_URI,
+       process.env.MONGO_URI,
     )
     .then(() => {
         console.log('Database Connected!')
