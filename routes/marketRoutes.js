@@ -22,7 +22,7 @@ const marketRoute = (app) => {
     })
     app.get('/market', async (req, res) => {
         try {
-            const market = await Market.find()
+            const market = await Market.find();
 
             res.status(200).json(market)
         } catch (error) {

@@ -1,1 +1,3 @@
 constants/connectionString.js
+.env
+constants/mongosetup.js
